@@ -3,7 +3,7 @@ import os
 
 
 def setup_logger(name: str, log_file: str) -> logging.Logger:
-    """Функция для создания логгера"""
+    """Функция для создания логгера."""
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
 
