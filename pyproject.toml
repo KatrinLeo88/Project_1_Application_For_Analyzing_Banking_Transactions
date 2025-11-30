@@ -19,7 +19,8 @@ dependencies = [
     "isort (>=7.0.0,<8.0.0)",
     "pytest (>=9.0.1,<10.0.0)",
     "coverage (>=7.12.0,<8.0.0)",
-    "python-dotenv (>=1.2.1,<2.0.0)"
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "mypy (>=1.19.0,<2.0.0)"
 ]
 
 [tool.poetry.group.dev.dependencies]
@@ -39,6 +40,9 @@ exclude = ".git"
 [tool.isort]
 line_length = 119
 profile = "black"
+
+[tool.coverage.run]
+omit = ["src/main.py"]
 
 [tool.mypy]
 disallow_untyped_defs = true
