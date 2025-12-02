@@ -5,21 +5,23 @@ from src.reports import spending_by_category
 
 
 @pytest.fixture
-def sample_df():
+def sample_df() -> pd.DataFrame:
     data = {
-        "Дата операции": ["20.12.2021 10:00:00", "15.10.2021 12:00:00"],
-        "Категория": ["Супермаркеты", "Аптека"],
-        "Сумма": [100, 200],
+        "Дата операции": ["20.12.2021 10:00:00", "15.10.2021 12:00:00", "20.12.2021 15:00:00"],
+        "Категория": ["Супермаркеты", "Аптека", "Супермаркеты"],
+        "Сумма": [100, 200, 300],
     }
     return pd.DataFrame(data)
 
 
-def test_spending_by_category(sample_df: pd.DataFrame) -> None:
-    result = spending_by_category(sample_df, "Супермаркеты", "21.12.2021 00:00:00")
-    assert len(result) == 1
-    assert result.iloc[0]["Категория"] == "Супермаркеты"
-
-
-def test_spending_by_category_empty(sample_df: pd.DataFrame) -> None:
-    result = spending_by_category(sample_df, "Автосервис", "21.12.2021 00:00:00")
-    assert len(result) == 0
+@pytest.mark.parametrize(
+    "category, date, expected_len",
+    [
+        ("Супермаркеты", "21.12.2021 00:00:00", 2),
+        ("Аптека", "21.12.2021 00:00:00", 1),
+        ("Автосервис", "21.12.2021 00:00:00", 0),
+    ],
+)
+def test_spending_by_category(sample_df: pd.DataFrame, category: str, date: str, expected_len: int) -> None:
+    result = spending_by_category(sample_df, category, date)
+    assert len(result) == expected_len

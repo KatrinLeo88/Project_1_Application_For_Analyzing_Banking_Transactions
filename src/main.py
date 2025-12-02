@@ -25,7 +25,7 @@ def main() -> None:
 
     print("\n--- 2. СЕРВИСЫ (SIMPLE SEARCH) ---")
     search_query = "Супермаркет"
-    result_search = simple_search(search_query, transactions_list)
+    result_search = simple_search(search_query, transactions_list) # type: ignore
 
     print(f"Результат поиска (первые 200 симв): {result_search[:2000]}...")
 
